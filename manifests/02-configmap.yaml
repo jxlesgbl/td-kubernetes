@@ -21,3 +21,14 @@
 # Doc : https://kubernetes.io/docs/concepts/configuration/configmap/
 #
 # ============================================================
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-config
+data:
+  BACKEND_HOST: backend
+  BACKEND_PORT: "3000"
+  user-interface.properties: |
+    color.good=purple
+    color.bad=yellow
+    allow.textmode=true

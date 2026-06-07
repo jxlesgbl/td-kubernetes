@@ -17,18 +17,16 @@ metadata:
   labels:
     app: backend
 spec:
-  # TODO : combien de replicas pour le backend ? (cf. enonce)
-  replicas:
+  replicas: 1
 
   selector:
-    matchLabels:
-      # TODO : selector — doit matcher le label des pods du template
-
+      matchLabels:
+        app: backend
 
   template:
     metadata:
       labels:
-        # TODO : label du pod — doit etre coherent avec le selector ci-dessus
+        app: backend
 
 
     spec:
@@ -39,16 +37,12 @@ spec:
             - containerPort: 3000
               name: http
 
-          # TODO : injecter la variable d'env ADMIN_TOKEN
-          #        depuis le Secret "backend-secret", cle "admin-token"
-          #        (utiliser la syntaxe env / valueFrom / secretKeyRef)
           env:
-
-
-          # TODO : ajouter une readinessProbe HTTP GET /health sur le port 3000
-          #        - initialDelaySeconds : 3
-          #        - periodSeconds : 5
-
+            - name: ADMIN_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: backend-secret
+                  key: admin-token
 
           resources:
             requests:
